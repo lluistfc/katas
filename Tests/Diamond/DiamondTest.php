@@ -16,6 +16,17 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
         new Diamond($value);
     }
 
+    /**
+     * @test
+     * @dataProvider letterProvider
+     */
+    public function shouldCreateADiamondOfSizeTwoTimesMinusOne($letter, $expectedSize)
+    {
+        $diamond = new Diamond($letter);
+        $this->assertEquals($expectedSize, $diamond->getSize());
+
+    }
+
     public function invalidValuesProvider()
     {
         return array(
@@ -24,6 +35,16 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
             array(''),
             array(' '),
             array('1a2c')
+        );
+    }
+
+    public function letterProvider()
+    {
+        return array(
+            array('a', 1),
+            array('b', 3),
+            array('c', 5),
+            array('z', 51)
         );
     }
 }
