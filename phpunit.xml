@@ -24,12 +24,12 @@
         </whitelist>
         <blacklist>
             <directory suffix=".php">./vendor</directory>
-            <directory suffix=".php">./tests</directory>
+            <directory suffix=".php">./Tests</directory>
         </blacklist>
     </filter>
     <testsuites>
         <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests</directory>
+            <directory suffix=".php">./Tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

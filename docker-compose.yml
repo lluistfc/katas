@@ -9,8 +9,6 @@ services:
       - ./:/docker/
     volumes_from:
       - storage
-    links:
-      - sonarqube
   storage:
     build:
       context: docker/storage/
