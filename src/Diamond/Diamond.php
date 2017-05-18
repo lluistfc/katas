@@ -34,24 +34,6 @@ class Diamond
         $this->size = (self::TWO_TIMES * $this->numberOfElements())-1;
     }
 
-    /**
-     * @param string $value
-     * @return bool
-     */
-    private function isLetter(string $value): bool
-    {
-        return (strtolower($value) >= self::CHARACTER_A && strtolower($value) <= self::CHARACTER_Z)
-            && (strlen($value) === 1);
-    }
-
-    /**
-     * @return int
-     */
-    private function numberOfElements(): int
-    {
-        return ord($this->letter) - ord(self::CHARACTER_A) + 1;
-    }
-
     public function __toString()
     {
         $output = PHP_EOL;
@@ -65,10 +47,23 @@ class Diamond
         return $output . substr(strrev($output), $this->size + 2);
     }
 
-    public function writeLine($lineNumber, $letter)
+    private function writeLine($lineNumber, $letter)
     {
         $line = $this->writeFirstHalfOfLine($lineNumber, $letter);
         return utf8_encode($line . substr(strrev($line), 1) . PHP_EOL);
+    }
+
+    /**
+     * @param $lineNumber
+     * @param $letter
+     * @return string
+     */
+    private function writeFirstHalfOfLine($lineNumber, $letter): string
+    {
+        $line = $this->whiteSpacesLeftOfLetter($lineNumber) .
+            $letter .
+            $this->writeSpacesRightOfLetter($lineNumber);
+        return $line;
     }
 
     /**
@@ -92,24 +87,29 @@ class Diamond
     }
 
     /**
-     * @param $lineNumber
-     * @param $letter
-     * @return string
-     */
-    private function writeFirstHalfOfLine($lineNumber, $letter): string
-    {
-        $line = $this->whiteSpacesLeftOfLetter($lineNumber) .
-            $letter .
-            $this->writeSpacesRightOfLetter($lineNumber);
-        return $line;
-    }
-
-    /**
      * @param $letter
      * @return string
      */
     private function nextLetter($letter): string
     {
         return chr(ord($letter) + 1);
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    private function isLetter(string $value): bool
+    {
+        return (strtolower($value) >= self::CHARACTER_A && strtolower($value) <= self::CHARACTER_Z)
+            && (strlen($value) === 1);
+    }
+
+    /**
+     * @return int
+     */
+    private function numberOfElements(): int
+    {
+        return ord($this->letter) - ord(self::CHARACTER_A) + 1;
     }
 }
