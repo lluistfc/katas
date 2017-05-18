@@ -8,8 +8,12 @@ namespace lluistfc\Diamond;
  */
 class Diamond
 {
+    const CHARACTER_A = 'a';
+    const CHARACTER_Z = 'z';
+    const WHITE_SPACE = ' ';
+
     /** @var string */
-    private $value;
+    private $letter;
 
     /** @var integer */
     private $size;
@@ -25,16 +29,8 @@ class Diamond
             throw new \Exception();
         }
 
-        $this->value = $value;
-        $this->calculateSize();
-    }
-
-    /**
-     * @return int
-     */
-    public function getSize()
-    {
-        return $this->size;
+        $this->letter = $value;
+        $this->size = (2*$this->numberOfElements())-1;
     }
 
     /**
@@ -43,13 +39,8 @@ class Diamond
      */
     private function isLetter(string $value): bool
     {
-        return (strtolower($value) >= 'a' && strtolower($value) <= 'z')
+        return (strtolower($value) >= self::CHARACTER_A && strtolower($value) <= self::CHARACTER_Z)
             && (strlen($value) === 1);
-    }
-
-    private function calculateSize()
-    {
-        $this->size = (2*$this->numberOfElements()) -1;
     }
 
     /**
@@ -57,7 +48,67 @@ class Diamond
      */
     private function numberOfElements(): int
     {
-        return ord($this->value) - ord('a') + 1;
+        return ord($this->letter) - ord(self::CHARACTER_A) + 1;
     }
 
+    public function __toString()
+    {
+        $output = PHP_EOL;
+        $letter = strtoupper(self::CHARACTER_A);
+
+        for($line = 1; $line <= ($this->size/2)+1; $line++) {
+            $output.= $this->writeLine($line, $letter);
+            $letter = $this->nextLetter($letter);
+        }
+
+        return $output . substr(strrev($output), $this->size+2);
+    }
+
+    public function writeLine($lineNumber, $letter)
+    {
+        $line = $this->writeFirstHalfOfLine($lineNumber, $letter);
+        return utf8_encode($line . substr(strrev($line), 1) . PHP_EOL);
+    }
+
+    /**
+     * @param $lineNumber
+     * @return string
+     */
+    private function whiteSpacesLeftOfLetter($lineNumber): string
+    {
+        $multiplier = $this->numberOfElements() - $lineNumber;
+        return str_repeat(self::WHITE_SPACE, $multiplier);
+    }
+
+    /**
+     * @param $lineNumber
+     * @return string
+     */
+    private function writeSpacesRightOfLetter($lineNumber): string
+    {
+        $multiplier = $lineNumber - 1;
+        return str_repeat(self::WHITE_SPACE, $multiplier);
+    }
+
+    /**
+     * @param $lineNumber
+     * @param $letter
+     * @return string
+     */
+    private function writeFirstHalfOfLine($lineNumber, $letter): string
+    {
+        $line = $this->whiteSpacesLeftOfLetter($lineNumber) .
+            $letter .
+            $this->writeSpacesRightOfLetter($lineNumber);
+        return $line;
+    }
+
+    /**
+     * @param $letter
+     * @return string
+     */
+    private function nextLetter($letter): string
+    {
+        return chr(ord($letter) + 1);
+    }
 }
