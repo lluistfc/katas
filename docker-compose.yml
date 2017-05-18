@@ -1,0 +1,18 @@
+version: '2'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/opt/project/
+      - ./:/docker/
+    volumes_from:
+      - storage
+    links:
+      - sonarqube
+  storage:
+    build:
+      context: docker/storage/
+    volumes:
+      - /storage

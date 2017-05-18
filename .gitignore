@@ -1,0 +1,8 @@
+.idea/
+vendor/
+composer.lock
+documentation/
+!documentation/.gitkeep
+/humbug.json
+documentation/coverage-html/
+!documentation/coverage-html/.gitkeep
