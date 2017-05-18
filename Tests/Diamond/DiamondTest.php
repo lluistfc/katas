@@ -26,7 +26,6 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
     public function shouldCreateADiamondOfSizeTwoTimesMinusOne($letter, $expectedSize)
     {
         $diamond = new Diamond($letter);
-        print_r((string) $diamond);
 
         $this->assertEquals($expectedSize, strlen((string) $diamond));
     }
@@ -37,6 +36,7 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
     public function shouldPrintADiamondOfSevenBySevenGivenLetterD()
     {
         $diamond = new Diamond('d');
+
         $expectedOutput = PHP_EOL .
             self::WHITE_SPACE . self::WHITE_SPACE . self::WHITE_SPACE . "A"               . self::WHITE_SPACE . self::WHITE_SPACE . self::WHITE_SPACE . PHP_EOL .
             self::WHITE_SPACE . self::WHITE_SPACE . "B"               . self::WHITE_SPACE . "B"               . self::WHITE_SPACE . self::WHITE_SPACE . PHP_EOL .
