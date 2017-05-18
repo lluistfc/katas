@@ -13,15 +13,21 @@ class Diamond
 
     public function __construct(string $value)
     {
-        if (!(strtolower($value) >= 'a' && strtolower($value) <= 'z')) {
-            throw new \Exception();
-        }
-
-        if (strlen($value) > 1) {
+        if (!$this->isLetter($value)) {
             throw new \Exception();
         }
 
         $this->value = $value;
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    private function isLetter(string $value): bool
+    {
+        return (strtolower($value) >= 'a' && strtolower($value) <= 'z')
+            && (strlen($value) > 1);
     }
 
 }
