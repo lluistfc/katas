@@ -11,7 +11,6 @@ class Diamond
     const CHARACTER_A = 'a';
     const CHARACTER_Z = 'z';
     const WHITE_SPACE = ' ';
-    const TWO_TIMES = 2;
 
     /** @var string */
     private $letter;
@@ -31,7 +30,7 @@ class Diamond
         }
 
         $this->letter = $value;
-        $this->size = (self::TWO_TIMES * $this->numberOfElements())-1;
+        $this->size = (2 * $this->numberOfElements())-1;
     }
 
     public function __toString()
@@ -39,7 +38,7 @@ class Diamond
         $output = PHP_EOL;
         $letter = strtoupper(self::CHARACTER_A);
 
-        for($line = 1; $line <= ($this->size/ self::TWO_TIMES)+1; $line++) {
+        for($line = 1; $line <= ($this->size/ 2)+1; $line++) {
             $output.= $this->writeLine($line, $letter);
             $letter = $this->nextLetter($letter);
         }
