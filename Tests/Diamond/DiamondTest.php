@@ -27,7 +27,7 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
     {
         $diamond = new Diamond($letter);
 
-        $this->assertEquals($expectedSize, strlen((string) $diamond));
+        $this->assertEquals($expectedSize, substr_count((string) $diamond, PHP_EOL));
     }
 
     /**
@@ -62,12 +62,12 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
 
     public function letterProvider()
     {
-        // we have n*n columns + n+1 PHP_EOL
+        // (2*n - 1) elements + 1 PHP_EOL at the end
         return array(
-            array('a', (1*1)+2),
-            array('b', (3*3)+4),
-            array('c', (5*5)+6),
-            array('z', (51*51)+52)
+            array('a', 2*1-1+1),
+            array('b', 2*2-1+1),
+            array('c', 2*3-1+1),
+            array('z', 2*26-1+1)
         );
     }
 }
