@@ -23,7 +23,7 @@ class DiamondTest extends \PHPUnit_Framework_TestCase
      * @param $letter
      * @param $expectedSize
      */
-    public function shouldCreateADiamondOfSizeTwoTimesMinusOne($letter, $expectedSize)
+    public function shouldCreateADiamondOfTwoTimesMinusOneElements($letter, $expectedSize)
     {
         $diamond = new Diamond($letter);
 
